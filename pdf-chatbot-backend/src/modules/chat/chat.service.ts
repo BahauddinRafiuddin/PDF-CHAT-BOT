@@ -13,12 +13,14 @@ export class ChatService {
     private chromaService: ChromaService
   ) { }
 
-  async ask(question: string) {
+  async ask(question: string,docId: string) {
     // Step 1: Convert question → embedding
     const queryEmbedding = await this.embeddingService.generateEmbedding(question);
 
     // Step 2: Query Chroma
-    const result = await this.chromaService.query(queryEmbedding);
+    const result = await this.chromaService.query(queryEmbedding,{
+      docId,
+    });
 
     const contextDocs = result?.documents?.[0] || [];
 

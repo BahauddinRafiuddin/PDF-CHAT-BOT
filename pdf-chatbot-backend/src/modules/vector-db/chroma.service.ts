@@ -8,7 +8,7 @@ export class ChromaService implements OnModuleInit {
 
   async onModuleInit() {
     this.client = new ChromaClient({
-      path: "http://localhost:8000",
+      path: "http://chroma:8000",
     });
 
     this.collection = await this.client.getOrCreateCollection({
@@ -20,21 +20,35 @@ export class ChromaService implements OnModuleInit {
   }
 
   //  Store embeddings
-  async addDocuments(docs: {
+  async addDocuments(data: {
     ids: string[];
     embeddings: number[][];
     documents: string[];
+    metadatas?: any[];
   }) {
-    await this.collection.add(docs);
+    await this.collection.add({
+      ids: data.ids,
+      embeddings: data.embeddings,
+      documents: data.documents,
+      metadatas: data.metadatas,
+    });
   }
 
   //  Query similar
-  async query(queryEmbedding: number[]) {
-    const result = await this.collection.query({
-      queryEmbeddings: [queryEmbedding],
+  async query(embedding: number[], filter?: any) {
+    return this.collection.query({
+      queryEmbeddings: [embedding],
       nResults: 3,
+      where: filter ? { docId: filter.docId } : undefined,
     });
-
-    return result;
   }
+
+  // Delete Document
+  async deleteByDocId(docId: string) {
+  return this.collection.delete({
+    where: {
+      docId,
+    },
+  });
+}
 }

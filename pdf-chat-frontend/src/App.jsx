@@ -1,10 +1,11 @@
 import { useState } from "react";
+import ChatPage from "./pages/ChatPage";
 
 
 function App() {
 
   return(
-    <div>hello Word!</div>
+    <ChatPage/>
   );
 }
 

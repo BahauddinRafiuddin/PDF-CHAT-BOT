@@ -5,7 +5,11 @@ import { ChatService } from './chat.service';
 export class ChatController {
   constructor(private chatService: ChatService) { }
   @Post()
-  async ask(@Body('question') question: string) {
-    return this.chatService.ask(question);
+  async ask(
+    @Body() body: { question: string; docId: string }
+  ) {
+    const { question, docId } = body;
+
+    return this.chatService.ask(question, docId);
   }
 }
