@@ -8,11 +8,11 @@ export class PdfController {
   constructor(private pdfService: PdfService) {
   }
 
-  @Post('upload')
-  @UseInterceptors(FileInterceptor('file', multerConfig))
-  async uploadPdf(@UploadedFile() file: Express.Multer.File) {
-    return this.pdfService.processPdf(file)
-  }
+  // @Post('upload')
+  // @UseInterceptors(FileInterceptor('file', multerConfig))
+  // async uploadPdf(@UploadedFile() file: Express.Multer.File) {
+  //   return this.pdfService.processPdf(file)
+  // }
 
   @Delete('delete')
   async delete(@Body() body: { docId: string; fileName: string }) {

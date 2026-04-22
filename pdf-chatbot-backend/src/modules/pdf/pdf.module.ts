@@ -8,6 +8,7 @@ import { VectorDbModule } from '../vector-db/vector-db.module';
 @Module({
   imports:[EmbeddingModule,VectorStoreModule,VectorDbModule],
   controllers: [PdfController],
-  providers: [PdfService]
+  providers: [PdfService],
+  exports:[PdfService]
 })
 export class PdfModule {}

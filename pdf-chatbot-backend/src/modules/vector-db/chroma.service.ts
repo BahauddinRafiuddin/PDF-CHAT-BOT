@@ -8,7 +8,7 @@ export class ChromaService implements OnModuleInit {
 
   async onModuleInit() {
     this.client = new ChromaClient({
-      path: "http://chroma:8000",
+      path: "http://localhost:8000",
     });
 
     this.collection = await this.client.getOrCreateCollection({

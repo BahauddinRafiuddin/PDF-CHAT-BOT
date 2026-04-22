@@ -1,23 +1,23 @@
 const ChatInput = ({ text, setText, handleSend, loading }) => {
   return (
-    <div className="p-4 border-t border-gray-800 bg-gray-900 flex gap-2">
+    <div className="max-w-4xl mx-auto w-full flex gap-3 bg-gray-900 border border-gray-700 p-2 rounded-2xl shadow-2xl focus-within:border-blue-500 transition-all">
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleSend()}
-        placeholder="Ask something..."
-        className="flex-1 bg-gray-800 border border-gray-700 rounded px-4 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+        placeholder="Ask a question about your document..."
+        className="flex-1 bg-transparent px-4 py-3 focus:outline-none text-sm md:text-base"
       />
 
       <button
         onClick={handleSend}
-        disabled={loading}
-        className="bg-blue-600 hover:bg-blue-700 transition px-5 rounded cursor-pointer disabled:opacity-50"
+        disabled={loading || !text.trim()}
+        className="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-bold px-6 rounded-xl cursor-pointer transition-all flex items-center justify-center active:scale-95"
       >
-        Send
+        {loading ? "..." : "Send"}
       </button>
     </div>
   );
 };
 
-export default ChatInput;
+export default ChatInput
