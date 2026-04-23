@@ -11,8 +11,20 @@ export class Chat {
   @Prop()
   docId!: string;
 
+  // ✅ Show in frontend
   @Prop()
   fileName!: string;
+
+  // ✅ Actual stored filename (UUID)
+  @Prop()
+  storedFileName!: string;
+
+  // ✅ Extra metadata (optional but pro-level)
+  @Prop()
+  fileSize!: number;
+
+  @Prop()
+  mimeType!: string;
 
   @Prop({ default: false })
   hasPdf!: boolean;

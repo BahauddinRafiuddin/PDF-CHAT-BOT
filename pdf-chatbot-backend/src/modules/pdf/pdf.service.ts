@@ -42,7 +42,8 @@ export class PdfService {
 
         metadatas.push({
           docId,
-          fileName: file.filename,
+          fileName: file.originalname,
+          storedFileName: file.filename,
         });
       }
 
@@ -55,7 +56,8 @@ export class PdfService {
 
       return {
         docId,
-        fileName: file.filename,
+        fileName: file.originalname,    
+        storedFileName: file.filename,  
         totalChunks: chunks.length,
         message: 'Stored in vector DB 🚀',
       };

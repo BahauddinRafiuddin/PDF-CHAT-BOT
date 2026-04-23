@@ -123,7 +123,8 @@ export class ChatService {
 
     // Attach to chat
     chat.docId = result.docId;
-    chat.fileName = result.fileName;
+    chat.fileName = file.originalname;
+    chat.storedFileName = file.filename;
     chat.hasPdf = true;
 
     await chat.save();
@@ -131,6 +132,7 @@ export class ChatService {
     return {
       message: 'PDF uploaded and linked to chat',
       docId: result.docId,
+      fileName: file.originalname, 
     };
   }
 
