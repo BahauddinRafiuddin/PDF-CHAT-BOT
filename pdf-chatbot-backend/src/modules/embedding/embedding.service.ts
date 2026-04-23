@@ -19,7 +19,7 @@ export class EmbeddingService implements OnModuleInit {
     const output = await this.extractor(text);
 
     // Convert tensor to array properly
-    const data = output.tolist(); // ✅ important
+    const data = output.tolist(); 
 
     // data shape: [1, tokens, dimensions]
     const tokens = data[0]; // remove batch dimension

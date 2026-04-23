@@ -54,7 +54,7 @@ export class ChatController {
     return this.chatService.uploadPdfToChat(chatId, file);
   }
 
-  //  Delete chat (with cleanup)
+  //  Delete chat
   @Delete(':id')
   deleteChat(@Param('id') chatId: string) {
     return this.chatService.deleteChat(chatId);

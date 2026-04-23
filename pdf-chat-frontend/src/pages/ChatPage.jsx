@@ -27,7 +27,7 @@ const ChatPage = () => {
   const activeChatIdRef = useRef(null);
   const bottomRef = useRef(null);
 
-  // ─── Init: load chats once ────────────────────────────────────────────────
+  // ─── Init: load chats once 
   useEffect(() => {
     const init = async () => {
       try {
@@ -49,7 +49,7 @@ const ChatPage = () => {
     init();
   }, []);
 
-  // ─── Load active chat messages ────────────────────────────────────────────
+  // ─── Load active chat messages
   useEffect(() => {
     if (!activeChatId) {
       setActiveChat(null);
@@ -74,12 +74,12 @@ const ChatPage = () => {
     load();
   }, [activeChatId]);
 
-  // ─── Auto-scroll ──────────────────────────────────────────────────────────
+  // ─── Auto-scroll ─
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [activeChat?.messages?.length, loading]);
 
-  // ─── Upload ───────────────────────────────────────────────────────────────
+  // ─── Upload ──────
   const handleUpload = useCallback(async (chatId, file) => {
     if (!file) return toast.error("Please select a file");
 
@@ -104,7 +104,7 @@ const ChatPage = () => {
     }
   }, []);
 
-  // ─── Delete ───────────────────────────────────────────────────────────────
+  // ─── Delete ──────
   const handleDelete = useCallback(async (chatId) => {
     // Optimistically remove from UI immediately
     setChats((prev) => {
@@ -135,7 +135,7 @@ const ChatPage = () => {
     }
   }, []);
 
-  // ─── Send message ─────────────────────────────────────────────────────────
+  // ─── Send message ──
   const handleSend = useCallback(async () => {
     if (!text.trim() || loading) return;
     if (!activeChatId) return toast.error("No active session");
@@ -180,7 +180,7 @@ const ChatPage = () => {
     }
   }, [text, loading, activeChatId]);
 
-  // ─── New chat ─────────────────────────────────────────────────────────────
+  // ─── New chat ────
   const handleNewChat = useCallback(async () => {
     try {
       const newChat = await createChat();
@@ -191,7 +191,7 @@ const ChatPage = () => {
     }
   }, []);
 
-  // ─── Render ───────────────────────────────────────────────────────────────
+  // ─── Render ─────
   if (isInitializing) {
     return (
       <div className="h-screen flex items-center justify-center bg-[#0B0F1A] text-slate-400">

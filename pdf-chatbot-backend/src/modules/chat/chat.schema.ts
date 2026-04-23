@@ -11,15 +11,15 @@ export class Chat {
   @Prop()
   docId!: string;
 
-  // ✅ Show in frontend
+  //  Show in frontend
   @Prop()
   fileName!: string;
 
-  // ✅ Actual stored filename (UUID)
+  //  Actual stored filename (UUID)
   @Prop()
   storedFileName!: string;
 
-  // ✅ Extra metadata (optional but pro-level)
+  //  Extra metadata (optional but pro-level)
   @Prop()
   fileSize!: number;
 

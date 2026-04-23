@@ -118,7 +118,7 @@ export class ChatService {
       throw new Error('PDF already exists in this chat');
     }
 
-    // 🔥 Use your existing PDF pipeline
+    // Use your existing PDF pipeline
     const result = await this.pdfService.processPdf(file);
 
     // Attach to chat

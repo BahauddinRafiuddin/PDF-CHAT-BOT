@@ -7,17 +7,4 @@ import { multerConfig } from './config/multer.config';
 export class PdfController {
   constructor(private pdfService: PdfService) {
   }
-
-  // @Post('upload')
-  // @UseInterceptors(FileInterceptor('file', multerConfig))
-  // async uploadPdf(@UploadedFile() file: Express.Multer.File) {
-  //   return this.pdfService.processPdf(file)
-  // }
-
-  // @Delete('delete')
-  // async delete(@Body() body: { docId: string; storedFileName: string }) {
-  //   const { docId, storedFileName } = body;
-
-  //   return this.pdfService.deleteDocument(docId, storedFileName);
-  // }
 }
