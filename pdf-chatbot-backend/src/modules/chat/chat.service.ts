@@ -168,7 +168,7 @@ export class ChatService {
     //  delete PDF file
     if (chat.fileName) {
       const fs = require('fs');
-      const path = `uploads/${chat.fileName}`;
+      const path = `uploads/${chat.storedFileName}`;
 
       if (fs.existsSync(path)) {
         fs.unlinkSync(path);

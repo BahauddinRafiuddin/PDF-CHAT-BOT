@@ -14,10 +14,10 @@ export class PdfController {
   //   return this.pdfService.processPdf(file)
   // }
 
-  @Delete('delete')
-  async delete(@Body() body: { docId: string; fileName: string }) {
-    const { docId, fileName } = body;
+  // @Delete('delete')
+  // async delete(@Body() body: { docId: string; storedFileName: string }) {
+  //   const { docId, storedFileName } = body;
 
-    return this.pdfService.deleteDocument(docId, fileName);
-  }
+  //   return this.pdfService.deleteDocument(docId, storedFileName);
+  // }
 }

@@ -106,7 +106,7 @@ const ChatItem = ({ chat, isActive, onSelect, onUpload, onDeleteRequest, isDelet
           </label>
         ) : (
           <button
-            onClick={() => onDeleteRequest(chat._id, chat.fileName)}
+            onClick={() => onDeleteRequest(chat._id, chat.storedFileName)}
             className="flex-1 flex items-center justify-center gap-1.5 bg-transparent hover:bg-red-500/10 text-gray-500 hover:text-red-400 text-[11px] font-semibold py-2 px-3 rounded-lg cursor-pointer transition-all border border-gray-700/40 hover:border-red-500/30"
           >
             <Trash2 size={11} />

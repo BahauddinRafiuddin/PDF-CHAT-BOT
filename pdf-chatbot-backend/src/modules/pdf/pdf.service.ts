@@ -5,6 +5,7 @@ import { EmbeddingService } from '../embedding/embedding.service';
 import { VectorStoreService } from '../vector-store/vector-store.service';
 import { v4 as uuidv4 } from 'uuid';
 import { ChromaService } from '../vector-db/chroma.service';
+import * as path from 'path';
 
 const pdfParse = require('pdf-parse');
 
@@ -19,11 +20,11 @@ export class PdfService {
     if (!file) {
       throw new BadRequestException('File is required');
     }
-
+    const filePath = path.join(process.cwd(), file.path);
     try {
       const docId = uuidv4();
 
-      const dataBuffer = fs.readFileSync(file.path);
+      const dataBuffer = await fs.promises.readFile(filePath);
       const pdfData = await pdfParse(dataBuffer);
 
       const chunks = splitTextIntoChunks(pdfData.text);
@@ -56,37 +57,45 @@ export class PdfService {
 
       return {
         docId,
-        fileName: file.originalname,    
-        storedFileName: file.filename,  
+        fileName: file.originalname,
+        storedFileName: file.filename,
         totalChunks: chunks.length,
         message: 'Stored in vector DB 🚀',
       };
 
     } catch (error) {
       console.error('PDF ERROR:', error);
+      try {
+        if (fs.existsSync(filePath)) {
+          await fs.promises.unlink(filePath);
+        }
+      } catch (cleanupError) {
+        console.error('FILE CLEANUP ERROR:', cleanupError);
+      }
+
       throw new BadRequestException('Error processing PDF');
     }
   }
-
-  async deleteDocument(docId: string, fileName: string) {
-    try {
-      //  Delete from Chroma
-      await this.chromaService.deleteByDocId(docId);
-
-      //  Delete file from uploads folder
-      const filePath = `uploads/${fileName}`;
-
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-      }
-
-      return {
-        message: "Document deleted successfully",
-      };
-
-    } catch (error) {
-      console.error("DELETE ERROR:", error);
-      throw new BadRequestException("Failed to delete document");
-    }
-  }
 }
+
+// async deleteDocument(docId: string, storedFileName: string) {
+//   try {
+//     // Delete from vector DB
+//     await this.chromaService.deleteByDocId(docId);
+
+//     // Delete file from uploads
+//     const filePath = path.join(process.cwd(), 'uploads', storedFileName);
+
+//     if (fs.existsSync(filePath)) {
+//       await fs.promises.unlink(filePath); // non-blocking
+//     }
+
+//     return {
+//       message: "Document deleted successfully",
+//     };
+
+//   } catch (error) {
+//     console.error("DELETE ERROR:", error);
+//     throw new BadRequestException("Failed to delete document");
+//   }
+// }
